@@ -1,0 +1,34 @@
+﻿@model ICollection<Category>
+
+<div class="container text-center mt-3">
+    <h3 class="text text-primary mt-2 mb-2">Book Store</h3>
+    @*    hiển thị thông báo add order thành công*@
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-danger">@TempData["success"]</p>
+    }
+
+    <div class="row">
+        @*      Khu vực để hiển thị chức năng Sort*@
+        <div class="col">
+            <a class="btn btn-outline-danger" href="/Category">All Category</a>
+            <a class="btn btn-outline-danger" asp-controller="Book"
+               asp-action="PriceAsc">Price Ascending</a>
+            <a class="btn btn-outline-success" asp-controller="Book"
+               asp-action="PriceDesc">Price Descending</a>
+        </div>
+        @*        Khu vực để hiển thị chức năng Search*@
+        <div class="col">
+            <form aap-controller="Book" asp-action="Search" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="search" required name="keyword" placeholder="Search by book name" />
+                </div>
+            </form>
+            <form aap-controller="Book" asp-action="Search_Cate" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="search" required name="keyword" placeholder="Search by book Category" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

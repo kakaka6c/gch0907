@@ -1,0 +1,42 @@
+﻿@model BookShop.Models.Category
+
+<div class="container col-md-6 text-center mt-3">
+    <div class="card-group">
+        <div class="row">
+            @foreach (var book in Model.Books)
+            {
+                <div class="col-md-3 p-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="card-img-top" src="@book.Image" width="120" height="180">
+                            <h4 class="text text-primary mt-3">@book.Name</h4>
+                            <h5 class="text text-success">@book.Price $</h5>
+                        </div>
+                        @if (book.Quantity == 0)
+                        {
+                            <div class="card-subtitle">
+                                <p class="text text-danger h2">Out of stock</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-subtitle">
+                                <h5 class="text text-danger">In-stock: @book.Quantity</h5>
+                            </div>
+                            <div class="card-footer">
+                                <form asp-controller="Order" asp-action="Make">
+                                    <input type="hidden" name="id" value="@book.Id" />
+                                    <input class="form-control" type="number" name="quantity" required min="1" max="@book.Quantity">
+                                    <div class="form-group mt-3">
+                                        <input type="submit" class="btn btn-danger" value="Make order"
+                                       onclick="    return confirm('Are you sure to order this book ?');" />
+                                    </div>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model ICollection<Category>
+
+<div class="d-flex justify-content-between">
+    @if (@TempData["Message"] != null)
+    {
+        <p class="alert alert-info text-primary">@TempData["Message"]</p>
+    }
+    <table class="table table-bordered">
+        <tr>
+            <th colspan="2" class="h3 bg-white text-danger">Category List</th>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            { 
+                <th class="col-md-4">
+                    <a class="btn btn-primary" asp-controller="Category" asp-action="Add">
+                        Add
+                    </a>
+                </th>
+            }
+        </tr>
+        <tr>
+        </tr>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    <a class="font-weight-bold" asp-controller="Category" asp-action="Detail" asp-route-id="@category.Id">
+                        @category.Name
+                    </a>
+                </td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a class="btn btn-warning" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">
+                            Edit
+                        </a>
+                        <a class="btn btn-danger" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id"
+                   onclick="    return confirm('Are you sure to delete this category ?');">
+                            Delete
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
